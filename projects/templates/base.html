@@ -1,0 +1,25 @@
+{% load bootstrap4 %} {% load static%}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"> {% if title %}
+    <title>Instagram - {{title}}</title>
+    {% else %}
+    <title> Instagram gallery </title>
+    {% endif %} {% block styles %} {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/photos.css' %}"> {% endblock %}
+</head>
+
+<body>
+    {% include "navbar.html" %} {% block content %}
+    <h1 class='text-center'></h1>
+    <div>
+        <img src="../../media/photos/projects.jpg" alt="no image" width="100%" height="400px">
+    </div>
+    {%endblock%} {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {% bootstrap_javascript %} {% endblock %}
+</body>
+
+</html>
