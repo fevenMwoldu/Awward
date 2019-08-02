@@ -12,7 +12,37 @@
 
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="">AWWARDS</a>
+                <a class="navbar-brand" href="" style="color: black"><b>AWWARDS</b></a>
+            </div>
+
+            <!--For the Account-->
+            <div class="col-sm-6 col-md-6">
+                {% if user.is_authenticated %}
+                <!-- <ul> -->
+                <class="dropdown">
+                    <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false" style="color: black">Account
+                                    <span class="caret"></span>
+                                </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{%url 'index'%}" style="color: black">Home</a>
+                        </li>
+                        <li>
+                            <a href="" style="color: black">Add Project</a>
+                        </li>
+                        <li>
+                            <a href="/accounts/password/change" style="color: black">Change Password</a>
+                        </li>
+                        <li>
+                            <a href="/logout" style="color: black">Logout</a>
+                        </li>
+                    </ul>
+                    <!-- </li> -->
+                    <!-- </ul> -->
+                    {% else %}
+
+                    <a class='btn btn-default' href="/accounts/register" style="color: black">Sign Up</a>
+                    <a class='btn btn-default' href="/accounts/login" style="color: black">Login</a> {% endif %}
             </div>
     </nav>
 
