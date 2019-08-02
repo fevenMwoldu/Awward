@@ -1,3 +1,23 @@
 {%extends 'base.html'%} {% block content %}{{ block.super}}
-<h1>welcome to my Awards website</h1>
-{% endblock %}
+<h1 style="text-align: center"> AWWARDS</h1>
+
+
+{% for project in projects %}
+
+
+
+<div class="card mb-3">
+    <img class="card-img-top" src="{{ project.Landingpage_img.url }}" alt="Card image cap">
+    <div class="card-body">
+        <h2 class="card-title" style="text-align: center">{{ project.Title }}</h2>
+        <p class="card-text" style="text-align: center">{{ project.Description }}</p>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endfor %} {% endblock %}
