@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http  import HttpResponse
+from . models import Project,Profile
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-# Create your views here.
+@login_required(login_url='/accounts/login/')
 def index(request):
-    return HttpResponse('Welcome to the Awards Website')
+
+    return render(request, 'index.html')
