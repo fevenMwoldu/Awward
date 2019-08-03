@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Project(models.Model):
@@ -12,6 +13,9 @@ class Project(models.Model):
 
     def save_project(self):
         self.save()
+
+    def delete_image(self):
+        self.delete()
    
     
 
@@ -20,9 +24,15 @@ class Profile(models.Model):
     User_bio = models.CharField(max_length =300)
     Project = models.ForeignKey(Project)
     Address = models.CharField(max_length =100)
+    user = models.ForeignKey(User)
 
     def __str__(self):
         return self.Address
 
     def save_profile(self):
         self.save()
+
+    @classmethod
+    def user_has_profile(cls, user_id):
+        profiles = Profile.objects.filter(user_id=user_id)
+        return len(profiles) > 0
