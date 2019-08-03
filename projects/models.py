@@ -14,8 +14,13 @@ class Project(models.Model):
     def save_project(self):
         self.save()
 
-    def delete_image(self):
+    def delete_project(self):
         self.delete()
+
+    @classmethod
+    def search_by_projectTitle(cls,search_term):
+        projects = cls.objects.filter(Title__icontains=search_term)
+        return projects
    
     
 

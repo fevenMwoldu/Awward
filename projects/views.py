@@ -33,3 +33,19 @@ def add_project(request):
             return HttpResponseRedirect('/')
         
     return render(request, 'add_project.html', {"form": form})
+
+def search_results(request):
+
+    if 'search_term' in request.GET and request.GET["search_term"]:
+        search_term = request.GET.get("search_term")
+        searched_projects = Project.search_by_projectTitle(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"projects": searched_projects})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
+
+
