@@ -25,14 +25,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for rate in project.rate_set.all %}
+                {% for rate in project.rates.all %}
                 <tr>
 
-                    <td>{{rate.User}}</td>
-                    <td>{{rate.Design}}</td>
-                    <td>{{rate.Usability}}</td>
-                    <td>{{rate.Content}}</td>
-                    <td>{{rate.Score}}</td>
+                    <td>{{rate.user}}</td>
+                    <td>{{rate.design}}</td>
+                    <td>{{rate.usability}}</td>
+                    <td>{{rate.content}}</td>
+                    <td>{{rate.score}}</td>
                 </tr>
                 {% endfor %}
 
