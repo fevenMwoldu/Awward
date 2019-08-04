@@ -24,10 +24,10 @@ class Project(models.Model):
     Landingpage_img = models.ImageField(upload_to = 'photos/')
     Description = models.CharField(max_length =300)
     Livelink = models.CharField(max_length =100)
-    Profile = models.ForeignKey(Profile)
+    Profile = models.ForeignKey(Profile, related_name='projects', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.Title
+        return 'Project(Title:{self.Title}, Landingpage_img:{self.Landingpage_img}, Description:{self.Description}, Livelink:{self.Livelink})'.format(self=self)
 
     def save_project(self):
         self.save()
@@ -41,26 +41,26 @@ class Project(models.Model):
         return projects
 
 class Rate(models.Model):
-    Project = models.ForeignKey(Project)
-    User = models.ForeignKey(User)
-    Design = models.DecimalField(max_digits=2, decimal_places=1)
-    Usability = models.DecimalField(max_digits=2, decimal_places=1)
-    Content = models.DecimalField(max_digits=2, decimal_places=1)
-    Score = models.DecimalField(max_digits=2, decimal_places=1)
+    project = models.ForeignKey(Project, related_name='rates', on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
+    design = models.DecimalField(max_digits=2, decimal_places=1)
+    usability = models.DecimalField(max_digits=2, decimal_places=1)
+    content = models.DecimalField(max_digits=2, decimal_places=1)
+    score = models.DecimalField(max_digits=2, decimal_places=1)
 
     @classmethod
     def create(cls, project, user, design, usability, content):
         return Rate(
-            Project = project,
-            User = user,
-            Design = design,
-            Usability = usability,
-            Content = content,
-            Score = round((design + usability + content) / 3, 1)
+            project = project,
+            user = user,
+            design = design,
+            usability = usability,
+            content = content,
+            score = round((design + usability + content) / 3, 1)
         )
 
     def __str__(self):
-        return 'Rate(Project:{self.Project}, User:{self.User}, Design:{self.Design}, Usability:{self.Usability}, Content:{self.Content}, Score:{self.Score})'.format(self=self)
+        return 'Rate(Project:{self.project}, User:{self.user}, Design:{self.design}, Usability:{self.usability}, Content:{self.content}, Score:{self.score})'.format(self=self)
 
     def save_rate(self):
         self.save()
