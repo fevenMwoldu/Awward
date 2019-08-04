@@ -18,5 +18,5 @@ class ProfileForm(forms.ModelForm):
 class RateForm(forms.ModelForm):
     class Meta:
         model = Rate
-        exclude = ['Project','User','Score']
+        exclude = ['project','user','score']
         
