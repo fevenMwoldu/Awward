@@ -51,7 +51,7 @@ class RateTestClass(TestCase):
         self.new_project= Project(Title = 'movies',Landingpage_img = '/home/feven/Pictures/Moringa_pics',Description = 'This is description',Livelink = 'https://blogproject20199.herokuapp.com/', Profile  = self.Biography)
         self.new_project.save()
 
-        self.rate = Rate(Project = self.new_project, User = user, Design=8.0, Usability=8.0, Content=8.0, Score=8.0)
+        self.rate = Rate(project = self.new_project, user = user, design=8.0, usability=8.0, content=8.0, score=8.0)
 
     # Testing  instance
     def test_instance(self):
