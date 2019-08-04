@@ -12,6 +12,33 @@
         <h2 class="card-title" style="text-align: center">{{ project.Title }}</h2>
         <p class="card-text" style="text-align: center">{{ project.Description }}</p>
         <p class="card-text" style="text-align: center"><a href="{{ project.Livelink}}">Live Link</a></p>
+        <p class="card-text" style="text-align: center"><a href="{% url 'add-rate' %}?project_id={{project.id}}" style="text-align: center">Rate</a></p>
+        <table class="table">
+            <thead>
+                <tr class="table-secondary">
+
+                    <th scope="col">User</th>
+                    <th scope="col">Design</th>
+                    <th scope="col">Usability</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rate in project.rate_set.all %}
+                <tr>
+
+                    <td>{{rate.User}}</td>
+                    <td>{{rate.Design}}</td>
+                    <td>{{rate.Usability}}</td>
+                    <td>{{rate.Content}}</td>
+                    <td>{{rate.Score}}</td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
 
     </div>
 </div>
