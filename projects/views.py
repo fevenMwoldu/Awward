@@ -4,6 +4,12 @@ from . models import Project,Profile,Rate
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm, ProjectForm,RateForm
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer, ProjectSerializer
+from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
+from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -73,9 +79,9 @@ def add_rate(request):
         form = RateForm(request.POST, request.FILES)
         if form.is_valid():            
             rate = form.save(commit=False)
-            rate.User = current_user
-            rate.Project = Project.objects.get(id=request.POST['project_id'])
-            rate.Score = round((rate.Design + rate.Usability + rate.Content) / 3, 1)
+            rate.user = current_user
+            rate.project = Project.objects.get(id=request.POST['project_id'])
+            rate.score = round((rate.design + rate.usability + rate.content) / 3, 1)
             rate.save()
             print('Saved rate {}'.format(rate))
     
@@ -84,6 +90,35 @@ def add_rate(request):
     project_id = request.POST['project_id'] if request.method == 'POST' else request.GET['project_id']
     
     return render(request, 'add_rate.html', {"form": form, "project_id": project_id})
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        context={'request': request}
+        all_profile = Profile.objects.all()
+        serializers = ProfileSerializer(all_profile, many=True)
+        return Response(serializers.data)
+
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+
+class ProjectList(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+    
+
+    def get(self, request, format=None):
+        all_project = Project.objects.all()
+        serializers = ProjectSerializer(all_project, many=True)
+        return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializers = ProjectSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    permission_classes = (IsAdminOrReadOnly,)
 
 
 
