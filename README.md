@@ -45,7 +45,7 @@ This project was generated with [Python CLI]version 3.7 and Django 1.11.17
 An inline CSS is used
 
 ## Live Link
-https://feveninstagram.herokuapp.com/accounts/login/?next=/
+https://fevenawards.herokuapp.com/
 
 ## Support and contact details
 Your feedback is welcome at Feven Weldu feven.m.weldu@gmail.com
